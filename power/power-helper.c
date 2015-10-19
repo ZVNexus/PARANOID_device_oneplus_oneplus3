@@ -545,6 +545,18 @@ void power_set_interactive(int on)
     saved_interactive_mode = !!on;
 }
 
+static void set_feature(struct power_module *module, feature_t feature, int state)
+{
+    switch (feature) {
+#ifdef TAP_TO_WAKE_NODE
+        case POWER_FEATURE_DOUBLE_TAP_TO_WAKE:
+            sysfs_write(TAP_TO_WAKE_NODE, state ? "1" : "0");
+            break;
+#endif
+        default:
+            break;
+    }
+}
 
 static int extract_stats(uint64_t *list, char *file, const char**param_names,
                          unsigned int num_parameters, int isHex) {
