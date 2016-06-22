@@ -4289,6 +4289,8 @@ case "$target" in
         # bring back main cores CPU 0,2
         echo 1 > /sys/devices/system/cpu/cpu0/online
         echo 1 > /sys/devices/system/cpu/cpu2/online
+        # EAS: Capping the max frequency of silver core to 1.6GHz
+        echo 1593600 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
         # configure governor settings for big cluster
         echo "schedutil" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load
