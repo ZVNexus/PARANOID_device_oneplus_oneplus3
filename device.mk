@@ -29,7 +29,8 @@ $(call inherit-product, vendor/oneplus/oneplus3/oneplus3-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-custom
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
