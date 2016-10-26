@@ -4312,7 +4312,7 @@ case "$target" in
         echo 10 > /dev/stune/top-app/schedtune.boost
         echo 1 > /dev/stune/top-app/schedtune.prefer_idle
         # Setting b.L scheduler parameters
-        echo 0 > /proc/sys/kernel/sched_boost
+        echo 1 > /proc/sys/kernel/sched_boost
         echo 1 > /proc/sys/kernel/sched_migration_fixup
         echo 95 > /proc/sys/kernel/sched_downmigrate
         echo 90 > /proc/sys/kernel/sched_upmigrate
