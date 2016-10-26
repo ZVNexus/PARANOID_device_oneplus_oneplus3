@@ -4305,7 +4305,7 @@ case "$target" in
         # re-enable thermal hotplug
         echo 1 > /sys/module/msm_thermal/core_control/enabled
         # input boost configuration
-        echo "0:1324800 2:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
+        echo "0:960000 2:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
         echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
         # Set default schedTune value for foreground/top-app (only affects EAS)
         echo 1 > /dev/stune/foreground/schedtune.prefer_idle
