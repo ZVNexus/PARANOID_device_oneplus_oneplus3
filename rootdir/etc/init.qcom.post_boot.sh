@@ -4273,7 +4273,7 @@ case "$target" in
         # set sync wakee policy tunable
         echo 1 > /proc/sys/kernel/sched_prefer_sync_wakee_to_waker
         # configure governor settings for little cluster
-        echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
         echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
@@ -4289,7 +4289,7 @@ case "$target" in
         # online CPU2
         echo 1 > /sys/devices/system/cpu/cpu2/online
         # configure governor settings for big cluster
-        echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+        echo "schedutil" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif
         echo "19000 1400000:39000 1700000:39000 2100000:79000" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay
