@@ -4307,6 +4307,10 @@ case "$target" in
         # input boost configuration
         echo "0:1324800 2:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
         echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
+        # Set default schedTune value for foreground/top-app (only affects EAS)
+        echo 1 > /dev/stune/foreground/schedtune.prefer_idle
+        echo 10 > /dev/stune/top-app/schedtune.boost
+        echo 1 > /dev/stune/top-app/schedtune.prefer_idle
         # Setting b.L scheduler parameters
         echo 0 > /proc/sys/kernel/sched_boost
         echo 1 > /proc/sys/kernel/sched_migration_fixup
