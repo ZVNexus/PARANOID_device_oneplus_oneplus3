@@ -98,4 +98,7 @@
     -->
     <integer name="config_longPressOnAppSwitchBehavior">1</integer>
 
+    <!-- SRGB -->
+    <string name="config_srgb_path">/sys/class/graphics/fb0/SRGB</string>
+
 </resources>
