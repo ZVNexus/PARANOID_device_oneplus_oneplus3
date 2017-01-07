@@ -68,4 +68,7 @@
          config to 19. -->
     <integer name="config_deviceHardwareKeys">19</integer>
 
+    <!-- SRGB -->
+    <string name="config_srgb_path">/sys/class/graphics/fb0/SRGB</string>
+
 </resources>
