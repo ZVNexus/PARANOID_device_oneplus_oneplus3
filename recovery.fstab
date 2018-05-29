@@ -5,7 +5,7 @@
 /dev/block/bootdevice/by-name/misc        /misc            emmc    defaults
 /dev/block/bootdevice/by-name/persist     /persist         ext4    defaults    display="Persist"
 /dev/block/bootdevice/by-name/recovery    /recovery        emmc    defaults    backup=1
-/dev/block/bootdevice/by-name/system      /system          ext4    defaults
+/dev/block/bootdevice/by-name/system      /system_root     ext4    defaults    display="System"
 /dev/block/bootdevice/by-name/system      /system_image    emmc    defaults
 /dev/block/bootdevice/by-name/modemst1    /efs1            emmc    defaults    backup=1,display=EFS
 /dev/block/bootdevice/by-name/modemst2    /efs2            emmc    defaults    backup=1,subpartitionof=/efs1
