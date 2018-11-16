@@ -4274,6 +4274,8 @@ case "$target" in
         echo 1 > /proc/sys/kernel/sched_prefer_sync_wakee_to_waker
         # configure governor settings for little cluster
         echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        echo 500 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
+        echo 20000 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
         echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
@@ -4293,6 +4295,8 @@ case "$target" in
         echo 1593600 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
         # configure governor settings for big cluster
         echo "schedutil" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+        echo 500 > /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us
+        echo 20000 > /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif
         echo "19000 1400000:39000 1700000:39000 2100000:79000" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay
