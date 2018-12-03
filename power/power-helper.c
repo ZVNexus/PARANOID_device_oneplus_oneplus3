@@ -63,10 +63,6 @@
 #define RPM_MASTER_STAT "/d/rpm_master_stats"
 #endif
 
-#ifndef WLAN_POWER_STAT
-#define WLAN_POWER_STAT "/d/wlan_wcnss/power_stats"
-#endif
-
 static const char *rpm_param_names[] = {
     "vlow_count",
     "accumulated_vlow_time",
@@ -84,14 +80,6 @@ static const char *rpm_master_param_names[] = {
     "xo_accumulated_duration",
     "xo_count"
 };
-
-static const char *wlan_param_names[] = {
-    "cumulative_sleep_time_ms",
-    "cumulative_total_on_time_ms",
-    "deep_sleep_enter_counter",
-    "last_deep_sleep_enter_tstamp_ms"
-};
-
 
 static int saved_dcvs_cpu0_slack_max = -1;
 static int saved_dcvs_cpu0_slack_min = -1;
@@ -623,19 +611,6 @@ int extract_platform_stats(uint64_t *list) {
     if (ret) {
         for (size_t i=RPM_PARAM_COUNT; i < PLATFORM_PARAM_COUNT; i++)
         list[i] = 0;
-    }
-
-    return 0;
-}
-
-int extract_wlan_stats(uint64_t *list) {
-
-    int ret;
-
-    ret = extract_stats(list, WLAN_POWER_STAT, wlan_param_names, WLAN_PARAM_COUNT, false);
-    if (ret) {
-        for (size_t i=0; i < WLAN_PARAM_COUNT; i++)
-            list[i] = 0;
     }
 
     return 0;
