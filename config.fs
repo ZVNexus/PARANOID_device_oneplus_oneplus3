@@ -108,6 +108,6 @@ caps: 0
 
 [system/vendor/firmware_mnt/image/*]
 mode: 0771
-user: AID_ROOT
+user: AID_SYSTEM
 group: AID_SYSTEM
 caps: 0
