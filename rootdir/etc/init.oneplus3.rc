@@ -67,6 +67,13 @@ on early-boot
     chown system system /mnt/vendor/persist/sensors/gyro_sensitity_cal
 
 on boot
+    # Set up SchedTune
+    write /dev/stune/foreground/schedtune.prefer_idle 1
+    write /dev/stune/top-app/schedtune.boost 0
+    write /dev/stune/top-app/schedtune.prefer_idle 1
+    write /dev/stune/rt/schedtune.boost 0
+    write /dev/stune/rt/schedtune.prefer_idle 1
+
     # Update foreground and background cpusets
     write /dev/cpuset/foreground/cpus 0-3
     write /dev/cpuset/background/cpus 0-3
