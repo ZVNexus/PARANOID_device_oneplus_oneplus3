@@ -324,3 +324,11 @@ SDM660_DISABLE_MODULE := true
 # Enable extra vendor libs
 ENABLE_EXTRA_VENDOR_LIBS := true
 PRODUCT_PACKAGES += vendor-extra-libs
+
+
+###################################################################################
+# This is the End of target.mk file.
+# Now, Pickup other split product.mk files:
+###################################################################################
+$(call inherit-product-if-exists, vendor/qcom/defs/product-defs/legacy/*.mk)
+###################################################################################
