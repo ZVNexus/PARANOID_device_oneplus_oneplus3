@@ -36,4 +36,13 @@
     <!-- Whether device has physical triple state switch. -->
     <bool name="config_hasAlertSlider">true</bool>
 
+    <!-- Default color for notification LED is blue. -->
+    <color name="config_defaultNotificationColor">#ff0000ff</color>
+
+    <!-- Used to decide if the user can change the colors. -->
+    <bool name="config_multiColorBatteryLed">true</bool>
+
+   <!--Used to decide if we show pulse settings. -->
+    <bool name="config_ledCanPulse">true</bool>
+
 </resources>
