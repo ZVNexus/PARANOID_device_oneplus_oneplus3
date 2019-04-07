@@ -6,6 +6,8 @@
 TARGET_BOARD_PLATFORM := msm8996
 # This value will be shown on fastboot menu
 TARGET_BOOTLOADER_BOARD_NAME := QC_Reference_Phone
+# TODO(b/124534788): Temporarily allow eng and debug LOCAL_MODULE_TAGS
+BUILD_BROKEN_ENG_DEBUG_TAGS:=true
 
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
