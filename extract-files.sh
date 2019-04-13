@@ -69,3 +69,13 @@ DEVICE_BLOB_ROOT="$LINEAGE_ROOT"/vendor/"$VENDOR"/"$DEVICE"/proprietary
 #
 sed -i "s|name=\"android.hidl.manager-V1.0-java|name=\"android.hidl.manager@1.0-java|g" \
     "$DEVICE_BLOB_ROOT"/etc/permissions/qti_libpermissions.xml
+
+function fix_vendor () {
+    sed -i \
+        "s/\/system\/$1\//\/vendor\/$1\//g" \
+        "$LINEAGE_ROOT"/vendor/"$VENDOR"/"$DEVICE"/proprietary/"$2"
+}
+
+fix_vendor etc vendor/lib/libmmcamera2_sensor_modules.so
+fix_vendor lib vendor/lib64/libremosaiclib.so
+fix_vendor lib vendor/lib/libopcamera_native_modules.so
