@@ -998,3 +998,7 @@ vendor/lib/libwfdhaldsmanager.so
 vendor/lib/libwfdhdcpcp.so
 vendor/lib/libwfdmmservice.so
 vendor/lib/libwfdmodulehdcpsession.so
+
+# VNDK
+vendor/lib/vndk/libbinder.so|134258560d0b48f11019c06d01b2a6e1c3b1d8f1
+vendor/lib/vndk-sp/libcutils.so|a36d6113182b2be72341fa96a8cca7791d9e16db
