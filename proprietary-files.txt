@@ -1002,3 +1002,8 @@ vendor/lib/libwfdhaldsmanager.so|fdd9d1c5a7e75684ad2039e0ce24a1e5ee308833
 vendor/lib/libwfdhdcpcp.so|6cb077e5c030cad0f9d61a614b013e965eba5d32
 vendor/lib/libwfdmmservice.so|f180f820e507d7ed2676b0d66d6d63cb74458563
 vendor/lib/libwfdmodulehdcpsession.so|4800ec57f1a546200389b98221145a310c5d6aca
+
+# VNDK
+vendor/lib/vndk/libbinder.so|134258560d0b48f11019c06d01b2a6e1c3b1d8f1
+vendor/lib/vndk-sp/libcutils.so|a36d6113182b2be72341fa96a8cca7791d9e16db
+vendor/lib/libcameraservice.so|9830e569717410f3da89aa80df3468116641794b
