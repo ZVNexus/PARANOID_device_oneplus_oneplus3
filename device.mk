@@ -427,6 +427,10 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service
 
+# SurfaceFlinger
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.protected_contents=true
+
 # Telephony
 #PRODUCT_PACKAGES += \
 #    ims-ext-common \
