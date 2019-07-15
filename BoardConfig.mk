@@ -196,6 +196,13 @@ BOARD_FLASH_BLOCK_SIZE := 262144
 TARGET_USES_MKE2FS := true
 # Enable System As Root even for non-A/B from P onwards
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+# Enable split system/vendor images
+TARGET_COPY_OUT_VENDOR := vendor
+
+ifeq ($(TARGET_COPY_OUT_VENDOR),vendor)
+  BOARD_VENDORIMAGE_PARTITION_SIZE := 1073741824
+  BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+endif
 
 # Power
 TARGET_HAS_NO_WLAN_STATS := true
