@@ -607,7 +607,7 @@ service vendor.start_hci_filter /vendor/bin/wcnss_filter
     class late_start
     user bluetooth
     group bluetooth diag system wakelock
-    seclabel u:r:bluetooth:s0
+    #seclabel u:r:bluetooth:s0
     disabled
 
 service vendor.bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
@@ -908,7 +908,7 @@ service qti-testscripts /system/bin/sh /system/etc/init.qcom.testscripts.sh
     user root
     disabled
     oneshot
-    seclabel u:r:qti-testscripts:s0
+    #seclabel u:r:qti-testscripts:s0
 
 service wifi-sdio-on /vendor/bin/init.qcom.sdio.sh
     class late_start
@@ -998,7 +998,7 @@ service profiler_daemon /system/bin/profiler_daemon
 service charger /charger
     class charger
     group system graphics
-    seclabel u:r:healthd:s0
+    #seclabel u:r:healthd:s0
 
 service vendor.ssr_diag /vendor/bin/ssr_diag
     class late_start
