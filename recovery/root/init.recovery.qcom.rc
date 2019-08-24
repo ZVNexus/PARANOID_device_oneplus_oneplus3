@@ -3,6 +3,7 @@ on boot
     write /proc/sys/kernel/sched_boost 1
 
 on fs
+    install_keyring
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
@@ -99,6 +100,11 @@ on init
     chmod 0664 /dev/ion
     chown system system /dev/ion
     write /proc/touchpanel/double_tap_enable 1
+    start hwservicemanager
+    start sbinqseecomd
+    start servicemanager
+    start gatekeeper-1-0
+    start keymaster-3-0
 
     # DASH
     chmod 0666 /dev/dash
@@ -107,15 +113,51 @@ service dashd /sbin/dashd
     critical
     seclabel u:r:recovery:s0
 
-# separate copy needed to use /sbin/linker64 instead of /system/bin/linker64
+service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service hwservicemanager /sbin/hwservicemanager
+    user root
+    group root
+    disabled
+    onrestart setprop hwservicemanager.ready false
+    seclabel u:r:recovery:s0
+
+service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service keystore /sbin/keystore /tmp/misc/keystore
+    disabled
+    user root
+    group root drmrpc readproc
+    seclabel u:r:recovery:s0
+    writepid /dev/cpuset/foreground/tasks
+
+service keystore_auth /sbin/keystore_auth
+    disabled
+    oneshot
+    user system
+    group root
+    seclabel u:r:recovery:s0
+
+service servicemanager /sbin/servicemanager
+    disabled
+    user root
+    group root readproc
+    seclabel u:r:recovery:s0
+    writepid /dev/cpuset/system-background/tasks
+
 service sbinqseecomd /sbin/qseecomd
     disabled
     user root
     group root
     seclabel u:r:recovery:s0
-
-on property:ro.crypto.state=encrypted
-    start sbinqseecomd
 
 on property:init.svc.recovery=running
     trigger enable-low-power
