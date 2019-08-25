@@ -4286,7 +4286,8 @@ case "$target" in
         echo 79000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
         echo 300000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
         echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif
-        # online CPU2
+        # bring back main cores CPU 0,2
+        echo 1 > /sys/devices/system/cpu/cpu0/online
         echo 1 > /sys/devices/system/cpu/cpu2/online
         # configure governor settings for big cluster
         echo "schedutil" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
