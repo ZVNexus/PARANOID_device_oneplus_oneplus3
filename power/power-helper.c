@@ -172,7 +172,6 @@ void power_hint(power_hint_t hint, void *data)
         {
             int duration = 0;
             if (data && sustained_performance_mode == 0) {
-                int* resources;
                 if (vr_mode == 0) { // Sustained mode only.
                     // Ensure that POWER_HINT_LAUNCH is not in progress.
                     if (launch_mode == 1) {
@@ -358,7 +357,6 @@ void power_set_interactive(int on)
 {
     char governor[80];
     char tmp_str[NODE_MAX];
-    struct video_encode_metadata_t video_encode_metadata;
     int rc = 0;
 
     if (set_interactive_override(on) == HINT_HANDLED) {
