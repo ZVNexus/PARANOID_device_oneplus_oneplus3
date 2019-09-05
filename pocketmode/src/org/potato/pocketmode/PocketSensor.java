@@ -27,7 +27,11 @@ import android.util.Log;
 
 import java.util.List;
 
-import org.potato.internal.util.FileUtils;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class PocketSensor implements SensorEventListener {
 
@@ -49,8 +53,8 @@ public class PocketSensor implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         boolean isNear = event.values[0] == 1;
-        if (FileUtils.isFileWritable(FPC_FILE)) {
-            FileUtils.writeLine(FPC_FILE, isNear ? "1" : "0");
+        if (isFileWritable(FPC_FILE)) {
+            writeLine(FPC_FILE, isNear ? "1" : "0");
         }
     }
 
@@ -82,4 +86,42 @@ public class PocketSensor implements SensorEventListener {
         }
         return null;
     }
+
+     /**
+     * Checks whether the given file is writable
+     *
+      * @return true if writable, false if not
+      */
+     public static boolean isFileWritable(String fileName) {
+         final File file = new File(fileName);
+         return file.exists() && file.canWrite();
+     }
+
+     /**
+      * Writes the given value into the given file
+      *
+      * @return true on success, false on failure
+      */
+     public static boolean writeLine(String fileName, String value) {
+         BufferedWriter writer = null;
+          try {
+             writer = new BufferedWriter(new FileWriter(fileName));
+             writer.write(value);
+         } catch (FileNotFoundException e) {
+             Log.w(TAG, "No such file " + fileName + " for writing", e);
+             return false;
+         } catch (IOException e) {
+             Log.e(TAG, "Could not write to file " + fileName, e);
+             return false;
+         } finally {
+             try {
+                 if (writer != null) {
+                     writer.close();
+                 }
+             } catch (IOException e) {
+                 // Ignored, not much we can do anyway
+             }
+         }
+          return true;
+     }
 }
