@@ -214,7 +214,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     Snap \
     android.hardware.camera.provider@2.4-impl \
-    android.hardware.camera.provider@2.4-service
+    android.hardware.camera.provider@2.4-service \
+    libshim_camera
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
