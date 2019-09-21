@@ -61,6 +61,10 @@ setup_vendor "$DEVICE" "$VENDOR" "$ROOT" false "$CLEAN_VENDOR"
 
 extract "$MY_DIR"/proprietary-files.txt "$SRC" "$SECTION"
 
+# Load the camera shim.
+CAMERA_SHIM="$COMMON_BLOB_ROOT"/vendor/lib/libmms_hal_vstab.so
+patchelf --add-needed libshim_camera.so "$CAMERA_SHIM"
+
 "$MY_DIR"/setup-makefiles.sh
 
 DEVICE_BLOB_ROOT="$ROOT"/vendor/"$VENDOR"/"$DEVICE"/proprietary
