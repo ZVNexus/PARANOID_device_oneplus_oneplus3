@@ -466,10 +466,7 @@ PRODUCT_PACKAGES += \
 
 # Telephony
 PRODUCT_PACKAGES += \
-   ims-ext-common_system
-
-PRODUCT_BOOT_JARS += \
-    ims-ext-common_system
+   ims-ext-common
 
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
