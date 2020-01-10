@@ -26,6 +26,8 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_m.mk)
 
 $(call inherit-product, vendor/oneplus/oneplus3/oneplus3-vendor.mk)
+$(call inherit-product, vendor/qcom/common/av/qti-av.mk)
+$(call inherit-product, vendor/qcom/common/perf/qti-perf.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
