@@ -14,6 +14,10 @@
 # limitations under the License.
 #
 
+$(call inherit-product, vendor/qcom/common/av/qti-av.mk)
+$(call inherit-product, vendor/qcom/common/bt/qti-bt.mk)
+$(call inherit-product, vendor/qcom/common/perf/qti-perf.mk)
+
 ALLOW_MISSING_DEPENDENCIES=true
 TARGET_USES_AOSP := true
 TARGET_USES_AOSP_FOR_AUDIO := false
