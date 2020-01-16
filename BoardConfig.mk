@@ -1,6 +1,17 @@
-# config.mk
 #
-# Product-specific compile-time definitions
+# Copyright (C) 2020 Paranoid Android
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 
 TARGET_BOARD_PLATFORM := msm8996
@@ -41,7 +52,7 @@ USE_CAMERA_STUB := true
 
 # Some framework code requires this to enable BT
 BOARD_HAVE_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/oneplus/oneplus3/bluetooth
 
 USE_OPENGL_RENDERER := true
 BOARD_USE_LEGACY_UI := true
@@ -51,51 +62,18 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
 
-ifeq ($(ENABLE_AB),true)
-#A/B related defines
-AB_OTA_UPDATER := true
-# Full A/B partiton update set
-# AB_OTA_PARTITIONS := xbl rpm tz hyp pmic modem abl boot keymaster cmnlib cmnlib64 system bluetooth
-# Subset A/B partitions for Android-only image update
-AB_OTA_PARTITIONS ?= boot system
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
-TARGET_NO_RECOVERY := true
-BOARD_USES_RECOVERY_AS_BOOT := true
-else
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-#TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_msm
+
 # Enable System As Root even for non-A/B from P onwards
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
-endif
-
-ifeq ($(ENABLE_AB), true)
-  ifeq ($(ENABLE_VENDOR_IMAGE),true)
-    TARGET_RECOVERY_FSTAB := device/qcom/msm8996/recovery_AB_split_variant.fstab
-  else
-    TARGET_RECOVERY_FSTAB := device/qcom/msm8996/recovery_AB_non-split_variant.fstab
-  endif
-else
-  ifeq ($(ENABLE_VENDOR_IMAGE),true)
-    TARGET_RECOVERY_FSTAB := device/qcom/msm8996/recovery_non-AB_split_variant.fstab
-  else
-    TARGET_RECOVERY_FSTAB := device/qcom/msm8996/recovery_non-AB_non-split_variant.fstab
-  endif
-endif
 
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 10737418240
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
-
-ifeq ($(ENABLE_VENDOR_IMAGE), true)
-BOARD_VENDORIMAGE_PARTITION_SIZE := 1073741824
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-TARGET_COPY_OUT_VENDOR := vendor
-BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
-endif
 
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
@@ -119,9 +97,9 @@ BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0
 
 endif
 
-BOARD_SECCOMP_POLICY := device/qcom/$(TARGET_BOARD_PLATFORM)/seccomp
+BOARD_SECCOMP_POLICY := device/oneplus/oneplus3/seccomp
 
-BOARD_EGL_CFG := device/qcom/$(TARGET_BOARD_PLATFORM)/egl.cfg
+BOARD_EGL_CFG := device/oneplus/oneplus3/egl.cfg
 
 BOARD_KERNEL_BASE        := 0x80000000
 BOARD_KERNEL_PAGESIZE    := 4096
@@ -146,7 +124,7 @@ TARGET_PER_MGR_ENABLED := true
 
 TARGET_HW_DISK_ENCRYPTION := true
 
-TARGET_CRYPTFS_HW_PATH := device/qcom/common/cryptfs_hw
+TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/cryptfs_hw
 
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 TARGET_BOOTIMG_SIGNED := true

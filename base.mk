@@ -1,3 +1,19 @@
+#
+# Copyright (C) 2020 Paranoid Android
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 # define flag to determine the kernel
 TARGET_KERNEL_VERSION := $(shell ls kernel | grep "msm-*" | sed 's/msm-//')
 
@@ -234,7 +250,7 @@ ifeq ($(TARGET_USE_QTI_BT_STACK), true)
 BT += libbluetooth_qti
 endif
 BT += libbt-hidlclient
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/oneplus/oneplus3/bluetooth
 
 #C2DColorConvert
 C2DCC := libc2dcolorconvert
@@ -1148,7 +1164,7 @@ endif
 
 # gps/location secuity configuration file
 PRODUCT_COPY_FILES += \
-    device/qcom/common/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
+    device/oneplus/oneplus3/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
 #copy codecs_xxx.xml to (TARGET_COPY_OUT_VENDOR)/etc/
 PRODUCT_COPY_FILES += \
@@ -1156,12 +1172,12 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml \
-    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
-    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
+    device/oneplus/oneplus3/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
+    device/oneplus/oneplus3/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 
 ifneq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS),true)
 PRODUCT_COPY_FILES += \
-    device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+    device/oneplus/oneplus3/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 endif
 
 ifeq ($(strip $(TARGET_USES_NQ_NFC)),true)
@@ -1179,7 +1195,7 @@ PRODUCT_COPY_FILES += \
 endif
 
 # include additional build utilities
--include device/qcom/common/utils.mk
+-include device/oneplus/oneplus3/utils.mk
 
 # Copy the vulkan feature level file.
 # Targets listed in VULKAN_FEATURE_LEVEL_0_TARGETS_LIST supports only vulkan feature level 0.
@@ -1202,15 +1218,10 @@ endif
 endif
 
 ifneq ($(strip $(TARGET_USES_RRO)),true)
-# enable overlays to use our version of
+# Enable overlays to use our version of
 # source/resources etc.
-ifneq ($(strip $(TARGET_BOARD_AUTO)),true)
-DEVICE_PACKAGE_OVERLAYS += device/qcom/common/device/overlay
-PRODUCT_PACKAGE_OVERLAYS += device/qcom/common/product/overlay
-else
-DEVICE_PACKAGE_OVERLAYS += device/qcom/common/automotive/device/overlay
-PRODUCT_PACKAGE_OVERLAYS += device/qcom/common/automotive/product/overlay
-endif
+DEVICE_PACKAGE_OVERLAYS += device/oneplus/oneplus3/device/overlay
+PRODUCT_PACKAGE_OVERLAYS += device/oneplus/oneplus3/product/overlay
 endif
 
 # Set up flags to determine the kernel version
@@ -1237,9 +1248,6 @@ endif
 # dm-verity definitions
 ifneq ($(BOARD_AVB_ENABLE), true)
    PRODUCT_SYSTEM_VERITY_PARTITION=/dev/block/bootdevice/by-name/system
-   ifeq ($(ENABLE_VENDOR_IMAGE), true)
-      PRODUCT_VENDOR_VERITY_PARTITION=/dev/block/bootdevice/by-name/vendor
-   endif
    $(call inherit-product, build/target/product/verity.mk)
 endif
 
@@ -1260,19 +1268,7 @@ endif
 PRODUCT_PACKAGES += \
     vndk-sp \
 
-# Temporary handling
-#
-# Include config.fs get only if legacy device/qcom/<target>/android_filesystem_config.h
-# does not exist as they are mutually exclusive.  Once all target's android_filesystem_config.h
-# have been removed, TARGET_FS_CONFIG_GEN should be made unconditional.
-DEVICE_CONFIG_DIR := $(dir $(firstword $(subst ]],, $(word 2, $(subst [[, ,$(_node_import_context))))))
-ifeq ($(wildcard $(DEVICE_CONFIG_DIR)/android_filesystem_config.h),)
-  TARGET_FS_CONFIG_GEN := device/qcom/common/config.fs
-else
-  $(warning **********)
-  $(warning TODO: Need to replace legacy $(DEVICE_CONFIG_DIR)android_filesystem_config.h with config.fs)
-  $(warning **********)
-endif
+TARGET_FS_CONFIG_GEN := device/oneplus/oneplus3/config.fs
 
 ifeq ($(TARGET_HAS_LOW_RAM),true)
     PRODUCT_PROPERTY_OVERRIDES += \
