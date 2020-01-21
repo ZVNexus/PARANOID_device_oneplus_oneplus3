@@ -51,22 +51,6 @@ TARGET_USE_QTI_BT_STACK := true
 
 BOARD_HAVE_QCOM_FM ?= true
 
-
-# Boot additions
-ifeq ($(strip $(TARGET_USES_NQ_NFC)),true)
-PRODUCT_BOOT_JARS += com.nxp.nfc.nq
-endif
-#Camera QC extends API
-#ifeq ($(strip $(TARGET_USES_QTIC_EXTENSION)),true)
-#PRODUCT_BOOT_JARS += com.qualcomm.qti.camera
-#endif
-ifneq ($(strip $(TARGET_DISABLE_PERF_OPTIMIATIONS)),true)
-# Preloading QPerformance jar to ensure faster perflocks in Boost Framework
-PRODUCT_BOOT_JARS += QPerformance
-# Preloading UxPerformance jar to ensure faster UX invoke in Boost Framework
-PRODUCT_BOOT_JARS += UxPerformance
-endif
-
 #skip boot jars check
 SKIP_BOOT_JARS_CHECK := true
 
@@ -234,7 +218,7 @@ ifeq ($(TARGET_USE_QTI_BT_STACK), true)
 BT += libbluetooth_qti
 endif
 BT += libbt-hidlclient
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/oneplus/oneplus3/bluetooth
 
 #C2DColorConvert
 C2DCC := libc2dcolorconvert
@@ -288,7 +272,6 @@ EBTABLES += libebtc
 FASTPOWERON := FastBoot
 
 #FM
-FM := qcom.fmradio
 FM += libqcomfm_jni
 FM += fm_helium
 FM += ftm_fm_lib
@@ -338,7 +321,6 @@ I420CC := libI420colorconvert
 INIT := init.qcom.composition_type.sh
 INIT += init.target.8x25.sh
 INIT += init.qcom.mdm_links.sh
-INIT += init.qcom.modem_links.sh
 INIT += init.qcom.sensor.sh
 INIT += init.target.rc
 INIT += init.qti.ims.sh
@@ -354,15 +336,12 @@ INIT += init.qcom.sh
 INIT += init.qcom.class_core.sh
 INIT += init.class_main.sh
 INIT += init.qcom.wifi.sh
-INIT += vold.fstab
 INIT += init.qcom.ril.path.sh
 INIT += init.qcom.usb.rc
 INIT += init.msm.usb.configfs.rc
 INIT += init.qcom.usb.sh
-INIT += usf_post_boot.sh
 INIT += init.qcom.efs.sync.sh
 INIT += ueventd.qcom.rc
-INIT += qca6234-service.sh
 INIT += ssr_setup
 INIT += enable_swap.sh
 INIT += init.mdm.sh
@@ -831,7 +810,6 @@ QRGND += qrngtest
 #WPA
 WPA := wpa_supplicant.conf
 WPA += wpa_cli
-WPA += wpa_supplicant_wcn.conf
 WPA += wpa_supplicant_ath6kl.conf
 WPA += wpa_supplicant
 WPA += hs20-osu-client
@@ -1093,13 +1071,6 @@ PRODUCT_PACKAGES += tcmiface
 # healthd libaray expanded for mode charger
 PRODUCT_PACKAGES += libhealthd.msm
 
-#intialise PRODUCT_PACKAGES_DEBUG list for debug modules
-PRODUCT_PACKAGES_DEBUG := init.qcom.testscripts.sh
-
-#Add init.qcom.test.rc to PRODUCT_PACKAGES_DEBUG list
-PRODUCT_PACKAGES_DEBUG += init.qcom.test.rc
-PRODUCT_PACKAGES_DEBUG += init.qcom.debug.sh
-
 #NANOPB_LIBRARY_NAME := libnanopb-c-2.8.0
 
 PRODUCT_PACKAGES_DEBUG += $(TELEPHONY_DBG)
@@ -1124,7 +1095,7 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml \
-    frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
+    frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.verified_boot.xml
 
 # Enable TDES support when KM4 is enabled
 ifeq ($(ENABLE_KM_4_0), true)
@@ -1132,23 +1103,9 @@ ifeq ($(ENABLE_KM_4_0), true)
         ro.hardware.keystore_desede=true
 endif
 
-# Bluetooth configuration files
-#PRODUCT_COPY_FILES += \
-    system/bluetooth/data/audio.conf:system/etc/bluetooth/audio.conf \
-    system/bluetooth/data/auto_pairing.conf:system/etc/bluetooth/auto_pairing.conf \
-    system/bluetooth/data/blacklist.conf:system/etc/bluetooth/blacklist.conf \
-    system/bluetooth/data/input.conf:system/etc/bluetooth/input.conf \
-    system/bluetooth/data/network.conf:system/etc/bluetooth/network.conf \
-
-
-#ifeq ($(BOARD_HAVE_BLUETOOTH_BLUEZ),true)
-#PRODUCT_COPY_FILES += \
-    system/bluetooth/data/stack.conf:system/etc/bluetooth/stack.conf
-#endif # BOARD_HAVE_BLUETOOTH_BLUEZ
-
 # gps/location secuity configuration file
 PRODUCT_COPY_FILES += \
-    device/qcom/common/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
+    device/oneplus/oneplus3/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
 #copy codecs_xxx.xml to (TARGET_COPY_OUT_VENDOR)/etc/
 PRODUCT_COPY_FILES += \
@@ -1156,12 +1113,12 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml \
-    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
-    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
+    device/oneplus/oneplus3/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
+    device/oneplus/oneplus3/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 
 ifneq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS),true)
 PRODUCT_COPY_FILES += \
-    device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+    device/oneplus/oneplus3/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 endif
 
 ifeq ($(strip $(TARGET_USES_NQ_NFC)),true)
@@ -1177,9 +1134,6 @@ ifneq ($(TARGET_NOT_SUPPORT_VULKAN),true)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml
 endif
-
-# include additional build utilities
--include device/qcom/common/utils.mk
 
 # Copy the vulkan feature level file.
 # Targets listed in VULKAN_FEATURE_LEVEL_0_TARGETS_LIST supports only vulkan feature level 0.
@@ -1202,15 +1156,10 @@ endif
 endif
 
 ifneq ($(strip $(TARGET_USES_RRO)),true)
-# enable overlays to use our version of
+# Enable overlays to use our version of
 # source/resources etc.
-ifneq ($(strip $(TARGET_BOARD_AUTO)),true)
-DEVICE_PACKAGE_OVERLAYS += device/qcom/common/device/overlay
-PRODUCT_PACKAGE_OVERLAYS += device/qcom/common/product/overlay
-else
-DEVICE_PACKAGE_OVERLAYS += device/qcom/common/automotive/device/overlay
-PRODUCT_PACKAGE_OVERLAYS += device/qcom/common/automotive/product/overlay
-endif
+DEVICE_PACKAGE_OVERLAYS += device/oneplus/oneplus3/device/overlay
+PRODUCT_PACKAGE_OVERLAYS += device/oneplus/oneplus3/product/overlay
 endif
 
 # Set up flags to determine the kernel version
@@ -1260,19 +1209,7 @@ endif
 PRODUCT_PACKAGES += \
     vndk-sp \
 
-# Temporary handling
-#
-# Include config.fs get only if legacy device/qcom/<target>/android_filesystem_config.h
-# does not exist as they are mutually exclusive.  Once all target's android_filesystem_config.h
-# have been removed, TARGET_FS_CONFIG_GEN should be made unconditional.
-DEVICE_CONFIG_DIR := $(dir $(firstword $(subst ]],, $(word 2, $(subst [[, ,$(_node_import_context))))))
-ifeq ($(wildcard $(DEVICE_CONFIG_DIR)/android_filesystem_config.h),)
-  TARGET_FS_CONFIG_GEN := device/qcom/common/config.fs
-else
-  $(warning **********)
-  $(warning TODO: Need to replace legacy $(DEVICE_CONFIG_DIR)android_filesystem_config.h with config.fs)
-  $(warning **********)
-endif
+TARGET_FS_CONFIG_GEN := device/oneplus/oneplus3/config.fs
 
 ifeq ($(TARGET_HAS_LOW_RAM),true)
     PRODUCT_PROPERTY_OVERRIDES += \
@@ -1281,21 +1218,6 @@ else
     PRODUCT_PROPERTY_OVERRIDES += \
         persist.vendor.qcomsysd.enabled=1
 endif
-
-PRODUCT_PACKAGES_DEBUG += \
-    init.qcom.debug.sh \
-    init.qcom.debug-sdm660.sh \
-    init.qcom.debug-sdm710.sh \
-    init.qti.debug-msmnile-apps.sh \
-    init.qti.debug-msmnile-modem.sh \
-    init.qti.debug-msmnile-slpi.sh \
-    init.qti.debug-talos.sh \
-    init.qti.debug-msmnile.sh \
-    init.qti.debug-kona.sh \
-    init.qti.debug-lito.sh \
-    init.qti.debug-trinket.sh \
-    init.qti.debug-atoll.sh \
-    init.qti.debug-bengal.sh
 
 PRODUCT_PACKAGES += liboemaids_system
 PRODUCT_PACKAGES += liboemaids_vendor
