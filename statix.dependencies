@@ -1,0 +1,12 @@
+[
+  {
+    "repository": "StatiXOS/android_kernel_oneplus_msm8996",
+    "target_path": "kernel/oneplus/msm8996",
+    "branch": "10"
+  },
+  {
+    "repository": "StatiXOS/android_vendor_oneplus",
+    "target_path": "vendor/oneplus",
+    "branch": "10"
+  }
+]

@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016 The CyanogenMod Project
+ * Copyright (c) 2020 StatiXOS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.lineageos.pocketmode;
+package org.statix.pocketmode;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
