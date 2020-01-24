@@ -30,6 +30,9 @@
          config to 7. -->
     <integer name="config_deviceHardwareKeys">83</integer>
 
+    <!-- Button backlight. -->
+    <bool name="config_deviceHasVariableButtonBrightness">true</bool>
+
     <!-- Whether device has physical triple state switch. -->
     <bool name="config_hasAlertSlider">true</bool>
 
