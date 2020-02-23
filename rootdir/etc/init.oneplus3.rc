@@ -1,4 +1,4 @@
-# Copyright (C) 2018, The LineageOS Project. All rights reserved.
+# Copyright (C) 2018-2020, The LineageOS Project. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -32,15 +32,6 @@ on init
     write /sys/devices/soc/${ro.boot.bootdevice}/${ro.boot.bootdevice}:ufs_variant/pm_qos_enable 0
     write /sys/module/lpm_levels/parameters/sleep_disabled Y
 
-    # add a cpuset for the camera daemon
-    # we want all cores for camera
-    mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-3
-    write /dev/cpuset/camera-daemon/mems 0
-    chown system system /dev/cpuset/camera-daemon
-    chown system system /dev/cpuset/camera-daemon/tasks
-    chmod 0664 /dev/cpuset/camera-daemon/tasks
-
 on late-fs
     # boot time fs tune
     write /sys/block/sda/queue/iostats 0
@@ -59,9 +50,6 @@ on post-fs-data
     mkdir /data/fpc_images/verify 0770 system system
     mkdir /data/fpc_images/enroll 0770 system system
     mkdir /data/fpc 0770 system system
-
-    #Create folder of camera
-    mkdir /data/misc/camera 0770 camera camera
 
 on early-boot
     chown system system /mnt/vendor/persist/sensors/gyro_sensitity_cal
@@ -120,9 +108,6 @@ on boot
     chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/proximity_state
     chown system system /sys/devices/soc/soc:fpc_fpc1020/proximity_state
 
-    # DASH
-    chmod 0660 /dev/dash
-
     # RGB light
     chown system system /sys/class/leds/red/pause_lo
     chown system system /sys/class/leds/blue/pause_lo
@@ -155,7 +140,6 @@ on charger
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 1
     write /sys/devices/soc/${ro.boot.bootdevice}/clkgate_enable 1
     write /sys/devices/soc/${ro.boot.bootdevice}/${ro.boot.bootdevice}:ufs_variant/pm_qos_enable 1
-    start vendor.dashd
 
 on property:sys.boot_completed=1
     # Enable UFS powersaving
@@ -171,14 +155,3 @@ on property:sys.boot_completed=1
     write /dev/cpuset/background/cpus 0
     write /dev/cpuset/system-background/cpus 0-2
     write /dev/cpuset/restricted/cpus 0-1
-
-service vendor.dashd /vendor/bin/dashd
-    class core
-    user root
-    group system
-    writepid /dev/cpuset/system-background/tasks
-
-service remosaic_daemon /vendor/bin/remosaic_daemon
-    class late_start
-    user camera
-    writepid /dev/cpuset/system-background/tasks

@@ -155,19 +155,10 @@ persist.sys.pd_enable=0
 #Disable rotator split feature
 sdm.debug.disable_rotator_split=1
 
-#Camera fullscreen doesn't show navigation bar
-Camera.no_navigation_bar=true
-
 #ifdef VENDOR_EDIT
 #yangfb 20160919 ,modify to set cutoff voltage to 3250mv
 ro.cutoff_voltage_mv=3250
 #endif
-
-#properties for limiting preview size in camera
-persist.vendor.camera.display.umax=1920x1080
-persist.vendor.camera.display.lmax=1280x720
-
-vendor.camera.hal1.packagelist=com.whatsapp,com.intsig.camscanner
 
 #Disable face beautification
 persist.ts.postmakeup=false

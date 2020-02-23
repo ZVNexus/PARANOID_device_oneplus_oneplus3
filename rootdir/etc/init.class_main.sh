@@ -126,18 +126,6 @@ case "$baseband" in
         fi
     fi
 
-    case "$datamode" in
-        "tethered")
-            start vendor.dataqti
-            start vendor.dataadpl
-            ;;
-        "concurrent")
-            start vendor.dataqti
-            start vendor.dataadpl
-            ;;
-        *)
-            ;;
-    esac
 esac
 
 #
