@@ -123,6 +123,9 @@ on boot
     # DASH
     chmod 0660 /dev/dash
 
+    # QCRILD
+    start vendor.qcrild
+
 on charger
     # Enable UFS powersaving
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 1
