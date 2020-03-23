@@ -44,16 +44,6 @@ constexpr const char* RO_PROP_SOURCES[] = {
         nullptr, "product.", "product_services.", "odm.", "vendor.", "system.", "bootimage.",
 };
 
-constexpr const char* BUILD_DESCRIPTION[] = {
-        "OnePlus3-user 8.0.0 OPR1.170623.032 31 release-keys",
-        "OnePlus3-user 8.0.0 OPR1.170623.032 31 release-keys",
-};
-
-constexpr const char* BUILD_FINGERPRINT[] = {
-        "OnePlus/OnePlus3/OnePlus3:8.0.0/OPR1.170623.032/02281230:user/release-keys",
-        "OnePlus/OnePlus3/OnePlus3T:8.0.0/OPR1.170623.032/02281230:user/release-keys",
-};
-
 void property_override(char const prop[], char const value[]) {
     prop_info* pi = (prop_info*)__system_property_find(prop);
     if (pi) {
@@ -77,19 +67,12 @@ void load_props(const char* model, bool is_3t = false) {
     for (const auto& source : RO_PROP_SOURCES) {
         ro_prop_override(source, "device", is_3t ? "OnePlus3T" : "OnePlus3", true);
         ro_prop_override(source, "model", model, true);
-        ro_prop_override(source, "fingerprint", is_3t ? BUILD_FINGERPRINT[1] : BUILD_FINGERPRINT[0],
-                         false);
     }
-    ro_prop_override(nullptr, "description", is_3t ? BUILD_DESCRIPTION[1] : BUILD_DESCRIPTION[0],
-                     false);
     ro_prop_override(nullptr, "product", "OnePlus3", false);
 
-    // ro.build.fingerprint property has not been set
+    // Override power profile for 3T.
     if (is_3t) {
-        property_set("ro.build.fingerprint", BUILD_FINGERPRINT[1]);
         property_set("ro.power_profile.override", "power_profile_3t");
-    } else {
-        property_set("ro.build.fingerprint", BUILD_FINGERPRINT[0]);
     }
 }
 
