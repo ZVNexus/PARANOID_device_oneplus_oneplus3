@@ -125,7 +125,9 @@ SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
 TARGET_USES_HWC2 := true
 TARGET_USES_GRALLOC1 := true
 
-# Enable dexpreopt to speed boot time
+# DEXPREOPT
+DONT_DEXPREOPT_PREBUILTS := true
+
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
     ifeq ($(WITH_DEXPREOPT),)
