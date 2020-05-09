@@ -194,6 +194,8 @@ TARGET_USES_MKE2FS := true
 # Enable System As Root even for non-A/B from P onwards
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 
+BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
+
 # Power
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 TARGET_USES_INTERACTION_BOOST := true
