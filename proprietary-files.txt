@@ -1012,6 +1012,13 @@ vendor/etc/init/vendor.qti.tftp.rc
 vendor/lib/libqrtr.so
 vendor/lib64/libqrtr.so
 
+# Thermal - LA.UM.8.6.2.r1-07100-89xx.0 (AOSPA/MSM8996/QKQ1.200426.002)
+vendor/bin/thermal-engine|04d63a4c1cee3872e2bcdacfc75c66a149c10fdf
+vendor/lib/libthermalclient.so|14593d3551af6ce493b8534d123739cc7d146993
+vendor/lib/libthermalioctl.so|1df3cf7b70e0cc09932958f2a53cf36154212379
+vendor/lib64/libthermalclient.so|dc6da00b29795e79172d828e97366ef51fb57129
+vendor/lib64/libthermalioctl.so|14b28ce146ce9e0851e1cb01de8bf3ba777670f8
+
 # Time - LA.UM.8.6.2.r1
 -vendor/app/TimeService/TimeService.apk
 vendor/bin/time_daemon
