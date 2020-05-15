@@ -25,6 +25,7 @@
 # Device was launched with Android 6.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_m.mk)
 
+$(call inherit-product, device/oneplus/common/common.mk)
 $(call inherit-product, vendor/oneplus/oneplus3/oneplus3-vendor.mk)
 
 # Overlays
